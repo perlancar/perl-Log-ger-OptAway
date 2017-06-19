@@ -60,7 +60,8 @@ sub unimport {
 
 This module installs an Install_Routine hook that replaces logging call that are
 higher than the current level (C<$Log::ger::Current_Level>) into a null
-statement. By default, since Current_Level is pre-set at 3 (warn) then
-C<log_info()>, C<log_debug()>, and C<log_trace()> calls will be turned
+statement. By default, since C<$Current_Level> is pre-set at 3 (warn) then
+C<log_info()>, C<log_debug()>, and C<log_trace()> calls will be turned into
+no-op.
 
 Note: C<use Log::ger::OptAway> must be performed before C<use Log::ger>.
