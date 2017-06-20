@@ -29,10 +29,10 @@ sub import {
                     \!1,
                 );
             }
-            [""];
+            [undef];
         },
     );
-    Log::ger::setup_package($caller) if $Log::ger::Importers{$caller};
+    Log::ger::setup_package($caller) if $Log::ger::Import_Args{$caller};
 }
 
 1;
