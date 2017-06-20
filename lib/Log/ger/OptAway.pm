@@ -31,13 +31,6 @@ sub import {
         unless grep { $_ == $hook } @Log::ger::Hooks_Install_Routine;
 }
 
-sub unimport {
-    my $self = shift;
-
-    @Log::ger::Hooks_Install_Routine =
-        grep { $_ != $hook } @Log::ger::Hooks_Install_Routine;
-}
-
 1;
 # ABSTRACT: Optimize away higher-level log statements
 
