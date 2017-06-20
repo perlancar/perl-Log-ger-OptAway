@@ -23,6 +23,7 @@ sub import {
             my %args = @_;
             my $fullname = "$caller\::log_$args{str_level}";
             if ($Log::ger::Current_Level < $args{level}) {
+                #print "D:no-oping $fullname\n";
                 B::CallChecker::cv_set_call_checker(
                     \&{$fullname},
                     sub { B::SVOP->new("const",0,!1) },
