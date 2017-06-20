@@ -8,27 +8,31 @@ use warnings;
 
 use Log::ger ();
 
-my $hook = sub {
-    require B::CallChecker;
-    require B::Generate;
-
-    my %args = @_;
-    if ($Log::ger::Current_Level < $args{level}) {
-        B::CallChecker::cv_set_call_checker(
-            \&{"$args{package}\::$args{name}"},
-            sub { B::SVOP->new("const",0,!1) },
-            \!1,
-        );
-        return ["", 1];
-    }
-    ["", 0];
-};
-
 sub import {
     my $self = shift;
 
-    unshift @Log::ger::Hooks_Install_Routine, $hook
-        unless grep { $_ == $hook } @Log::ger::Hooks_Install_Routine;
+    my $caller = caller(0);
+
+    Log::ger::add_hook(
+        'after_install_routine',
+        99,
+        sub {
+            require B::CallChecker;
+            require B::Generate;
+
+            my %args = @_;
+            my $fullname = "$caller\::log_$args{str_level}";
+            if ($Log::ger::Current_Level < $args{level}) {
+                B::CallChecker::cv_set_call_checker(
+                    \&{$fullname},
+                    sub { B::SVOP->new("const",0,!1) },
+                    \!1,
+                );
+            }
+            [""];
+        },
+    );
+    Log::ger::setup_package($caller) if $Log::ger::Importers{$caller};
 }
 
 1;
@@ -37,6 +41,7 @@ sub import {
 =head1 SYNOPSIS
 
  use Log::ger::OptAway;
+ use Log::ger;
 
 
 =head1 DESCRIPTION
@@ -51,10 +56,7 @@ sub import {
  '???';
  -e syntax OK
 
-This module installs an Install_Routine hook that replaces logging call that are
-higher than the current level (C<$Log::ger::Current_Level>) into a null
-statement. By default, since C<$Current_Level> is pre-set at 3 (warn) then
-C<log_info()>, C<log_debug()>, and C<log_trace()> calls will be turned into
-no-op.
-
-Note: C<use Log::ger::OptAway> must be performed before C<use Log::ger>.
+This module installs a hook to replace logging call that are higher than the
+current level (C<$Log::ger::Current_Level>) into a null statement. By default,
+since C<$Current_Level> is pre-set at 3 (warn) then C<log_info()>,
+C<log_debug()>, and C<log_trace()> calls will be turned into no-op.
