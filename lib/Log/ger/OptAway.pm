@@ -48,9 +48,7 @@ sub import {
  use Log::ger;
 
 Calling C<use Log::ger::OptAway> will affect subsequent packages that C<use
-Log::ger>. If you want to affect all packages, run:
-
- Log::ger::resetup_importers();
+Log::ger>.
 
 To demonstrate the effect of optimizing away:
 
