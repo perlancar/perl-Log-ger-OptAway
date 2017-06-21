@@ -40,6 +40,8 @@ sub import {
 1;
 # ABSTRACT: Optimize away higher-level log statements
 
+=for Pod::Coverage ^(.+)$
+
 =head1 SYNOPSIS
 
  use Log::ger::OptAway;
