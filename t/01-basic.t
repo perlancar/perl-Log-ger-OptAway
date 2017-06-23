@@ -13,7 +13,7 @@ package My::P0;
 use Log::ger;
 
 package My::P1;
-use Log::ger::OptAway;
+use Log::ger::Plugin 'OptAway';
 use Log::ger;
 
 package main;
@@ -28,7 +28,7 @@ My::P1::log_warn("warn");
 My::P1::log_debug("debug");
 is($str, "warn\n");
 
-Log::ger::Util::reset_plugins('after_install_log_routine');
+Log::ger::Util::reset_hooks('after_install_routines');
 Log::ger::Util::set_level(5);
 
 # XXX why is P0's also optimized away?
