@@ -50,7 +50,7 @@ sub get_hooks {
  use Log::ger::Plugin->set('OptAway');
  use Log::ger;
 
-Co demonstrate the effect of optimizing away:
+To demonstrate the effect of optimizing away:
 
  % perl -MLog::ger -MO=Deparse -e'log_warn "foo\n"; log_debug "bar\n"'
  log_warn("foo\n");
