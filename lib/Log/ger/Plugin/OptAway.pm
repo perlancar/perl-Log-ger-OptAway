@@ -23,7 +23,9 @@ sub get_hooks {
                 return [undef] unless $args{target} eq 'package';
 
                 for my $r (@{ $args{routines} }) {
-                    my $fullname = "$args{target_arg}\::$r->[1]";
+                    my ($code, $name, $lnum, $type) = @$r;
+                    next unless $type =~ /\Alog_/;
+                    my $fullname = "$args{target_arg}\::$name";
                     if ($Log::ger::Current_Level < $r->[2]) {
                         #print "D:no-oping $fullname\n";
                         B::CallChecker::cv_set_call_checker(
