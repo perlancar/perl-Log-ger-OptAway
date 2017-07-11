@@ -20,7 +20,7 @@ sub get_hooks {
                 my %args = @_;
 
                 # we are only relevant when targetting package
-                return [undef] unless $args{target} eq 'package';
+                return [undef] unless ($args{target}||'') eq 'package';
 
                 for my $r (@{ $args{routines} }) {
                     my ($code, $name, $lnum, $type) = @$r;
