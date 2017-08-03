@@ -24,8 +24,9 @@ sub get_hooks {
 
                 for my $r (@{ $args{routines} }) {
                     my ($code, $name, $lnum, $type) = @$r;
-                    next unless $type =~ /\Alog_/;
+                    next unless $type =~ /\A(log|is)_/;
                     my $fullname = "$args{target_arg}\::$name";
+                    #print "D:Current_Level = <$Log::ger::Current_Level>, r->[2] = <$r->[2]>\n";
                     if ($Log::ger::Current_Level < $r->[2]) {
                         #print "D:no-oping $fullname\n";
                         B::CallChecker::cv_set_call_checker(
