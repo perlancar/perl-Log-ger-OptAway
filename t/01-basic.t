@@ -29,7 +29,7 @@ My::P1::log_debug("debug");
 is($str, "warn\n");
 
 Log::ger::Util::reset_hooks('after_install_routines');
-Log::ger::Util::set_level(5);
+Log::ger::Util::set_level(50);
 
 # XXX why is P0's also optimized away?
 $str = "";
