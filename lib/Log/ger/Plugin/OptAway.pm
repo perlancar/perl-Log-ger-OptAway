@@ -71,7 +71,7 @@ This plugin replaces logging statements that are higher than the current level
 magic at compile-time. The logging statements will become no-op and will have
 zero run-time overhead.
 
-By default, since C<$Current_Level> is pre-set at 3 (warn) then C<log_info()>,
+By default, since C<$Current_Level> is pre-set at 30 (warn) then C<log_info()>,
 C<log_debug()>, and C<log_trace()> calls will be turned into no-op.
 
 Caveats:
